@@ -1,0 +1,26 @@
+name: '"Configure Dropbox Credentials" Action For GitHub Actions'
+description: 'Configure Dropbox credential configuration files for use with the AWS CLI and AWS SDKs'
+branding:
+  icon: 'lock'
+  color: 'blue'
+inputs:
+  dropbox-access-key-id:
+    description: 'Dropbox App Access Key ID.'
+    required: true
+  dropbox-secret-access-key:
+    description: 'Dropbox App Secret Access Key.'
+    required: true
+  dropbox-session-token:
+    description: 'Dropbox Session Token.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - id: action
+      shell: bash
+      run: |
+        touch ~/.dropbox_uploader
+        echo "CONFIGFILE_VERSION=2.0" > ~/.dropbox_uploader
+        echo "OAUTH_APP_KEY=${{ inputs.dropbox-access-key-id }}" >> ~/.dropbox_uploader
+        echo "OAUTH_APP_SECRET=${{ inputs.dropbox-secret-access-key }}" >> ~/.dropbox_uploader
+        echo "OAUTH_REFRESH_TOKEN=${{ inputs.dropbox-session-token }}" >> ~/.dropbox_uploader
