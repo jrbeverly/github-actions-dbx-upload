@@ -1,0 +1,23 @@
+name: Build, Test & Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Configure Dropbox Credentials
+        uses: ./.github/actions/configure-dropbox-credentials
+        with:
+          dropbox-access-key-id: ${{ secrets.DROPBOX_ACCESS_KEY_ID }}
+          dropbox-secret-access-key: ${{ secrets.DROPBOX_SECRET_ACCESS_KEY }}
+          dropbox-session-token: ${{ secrets.DROPBOX_SESSION_TOKEN }} 
