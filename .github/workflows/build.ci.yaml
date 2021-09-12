@@ -21,3 +21,9 @@ jobs:
           dropbox-access-key-id: ${{ secrets.DROPBOX_ACCESS_KEY_ID }}
           dropbox-secret-access-key: ${{ secrets.DROPBOX_SECRET_ACCESS_KEY }}
           dropbox-session-token: ${{ secrets.DROPBOX_SESSION_TOKEN }} 
+
+      - name: Upload to artifacts
+        uses: ./.github/actions/upload-artifacts-to-dropbox
+        with:
+          path: packages/
+          folder: artifacts/blockycraft/${GITHUB_SHA}
